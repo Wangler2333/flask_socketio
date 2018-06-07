@@ -13,6 +13,7 @@
 
     <script>
         var init_dict = {};
+
         function getCookie(name) {
             var r = document.cookie.match("\\b" + name + "=([^;]*)\\b");
             return r ? r[1] : undefined;
@@ -54,37 +55,6 @@
             , layer = mobile.layer
             , $ = layui.jquery;
 
-        // //演示自动回复
-        // var autoReplay = [
-        //     '您好，我现在有事不在，一会再和您联系。',
-        //     '你没发错吧？face[微笑] ',
-        //     '洗澡中，请勿打扰，偷窥请购票，个体四十，团体八折，订票电话：一般人我不告诉他！face[哈哈] ',
-        //     '你好，我是主人的美女秘书，有什么事就跟我说吧，等他回来我会转告他的。face[心] face[心] face[心] ',
-        //     'face[威武] face[威武] face[威武] face[威武] ',
-        //     '<（@￣︶￣@）>',
-        //     '你要和我说话？你真的要和我说话？你确定自己想说吗？你一定非说不可吗？那你说吧，这是自动回复。',
-        //     'face[黑线]  你慢慢说，别急……',
-        //     '(*^__^*) face[嘻嘻] ，是贤心吗？'
-        // ];
-
-        // var init_dict = {};
-        //
-        // $.ajax({
-        //         url: 'api/main' //接口地址（返回的数据格式见下文）
-        //         , type: 'get' //默认get，一般可不填
-        //         , data: {} //额外参数
-        //         , dataType: "json"
-        //         , async: false //不实用异步
-        //         , success: function (data) {
-        //             if (data.code == 4001) {
-        //                 location.href = 'login.html'; //跳转到登入页
-        //             } else {
-        //                 init_dict = data;
-        //             }
-        //         }
-        //     }
-        // );
-
         layim.config({
 
 
@@ -94,30 +64,11 @@
                 , type: '' //默认post
             }
 
-            // {
-            //   "code": 0 //0表示成功，其它表示失败
-            //   ,"msg": "" //失败信息
-            //   ,"data": {
-            //     "src": "http://cdn.xxx.com/upload/images/a.jpg" //图片url
-            //   }
-            // }
-
             //上传文件接口
             , uploadFile: {
                 url: 'api/upload/file' //（返回的数据格式见下文）
                 , type: '' //默认post
             }
-
-            // {
-            //   "code": 0 //0表示成功，其它表示失败
-            //   ,"msg": "" //失败信息
-            //   ,"data": {
-            //     "src": "http://cdn.xxx.com/upload/file/LayIM.zip" //文件url
-            //     ,"name": "LayIM.zip" //文件名
-            //   }
-            // }
-
-            //,brief: true
 
             // 通过layim.config来设定init参数可获得：我的信息、好友列表、群组列表。你可以采用Ajax配置方式，以及直接赋值列表数据
             , init: init_dict
@@ -219,77 +170,25 @@
         });
 
         //监听发送消息
-        // layim.on('sendMessage', function (data) {
-        //     var To = data.to;
-        //     //console.log(data);
-        //
-        //     //演示自动回复
-        //     setTimeout(function () {
-        //         var obj = {};
-        //         if (To.type === 'group') {
-        //             obj = {
-        //                 username: '模拟群员' + (Math.random() * 100 | 0)
-        //                 , avatar: layui.cache.dir + 'images/face/' + (Math.random() * 72 | 0) + '.gif'
-        //                 , id: To.id
-        //                 , type: 'group'
-        //                 , content: autoReplay[Math.random() * 9 | 0]
-        //             }
-        //         } else {
-        //             obj = {
-        //                 username: To.name
-        //                 , avatar: To.avatar
-        //                 , id: To.id
-        //                 , type: To.type
-        //                 , content: autoReplay[Math.random() * 9 | 0]
-        //             }
-        //         }
-        //         layim.getMessage(obj);
-        //     }, 3000);
-        // });
-
-
         var socket = io.connect("http://127.0.0.1:5000/");
         // var socket = new WebSocket("ws://127.0.0.1:5000/");
         layim.on('sendMessage', function (res) {
-            // var mine = res.mine; //包含我发送的消息及我的信息
-            // codelayui.code //mine的结构如下：
-            // mine = {
-            //     avatar: "avatar.jpg" //我的头像
-            //     , content: "你好吗" //消息内容
-            //     , id: "100000" //我的id
-            //     , mine: true //是否我发送的消息
-            //     , username: "纸飞机" //我的昵称
-            // };
-            // var to = res.to; //对方的信息
-            // codelayui.code //to的结构如下：
-            // to = {
-            //     avatar: "avatar.jpg"
-            //     , id: "100001"
-            //     , name: "贤心"
-            //     , sign: "这些都是测试数据，实际使用请严格按照该格式返回"
-            //     , type: "friend" //聊天类型，一般分friend和group两种，group即群聊
-            //     , username: "贤心"
-            // };
             //监听到上述消息后，就可以轻松地发送socket了，如：
             socket.emit('chatMessage', {'data': res});
-            // socket.send({
-            //     type: 'chatMessage' //随便定义，用于在服务端区分消息类型
-            //     , data: res
-            // });
-
         });
 
-        //模拟收到一条好友消息
-        setTimeout(function () {
+        socket.on('chatMessage', function (data) {
             layim.getMessage({
-                username: "贤心"
-                , avatar: "http://tp1.sinaimg.cn/1571889140/180/40030060651/1"
-                , id: "100001"
-                , type: "friend"
-                , cid: Math.random() * 100000 | 0 //模拟消息id，会赋值在li的data-cid上，以便完成一些消息的操作（如撤回），可不填
-                , content: "嗨，欢迎体验LayIM。演示标记：" + new Date().getTime()
+                username: data.username
+                , avatar: data.avatar
+                , id: data.id
+                , type: data.type
+                //, cid: Math.random() * 100000 | 0 //模拟消息id，会赋值在li的data-cid上，以便完成一些消息的操作（如撤回），可不填
+                , content: data.content
+                , mine: data.mine
+                , timestamp:data.timestamp
             });
-        }, 3000);
+        });
 
         //监听查看更多记录
         layim.on('chatlog', function (data, ul) {

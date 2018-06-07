@@ -32,7 +32,6 @@
     <index id="18" parent="6" name="sqlite_autoindex_alembic_version_1">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>version_num</ColNames>
-      <ColumnCollations></ColumnCollations>
       <Unique>1</Unique>
     </index>
     <key id="19" parent="6" name="alembic_version_pkc">
@@ -341,13 +340,11 @@
     <index id="90" parent="15" name="sqlite_autoindex_s_user_info_2">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>username</ColNames>
-      <ColumnCollations></ColumnCollations>
       <Unique>1</Unique>
     </index>
     <index id="91" parent="15" name="sqlite_autoindex_s_user_info_1">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>phone</ColNames>
-      <ColumnCollations></ColumnCollations>
       <Unique>1</Unique>
     </index>
     <key id="92" parent="15">

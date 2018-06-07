@@ -168,6 +168,12 @@ def main():
                         "sign": "这些都是测试数据，实际使用请严格按照该格式返回"
                     },
                     {
+                        "username": "纸飞机",
+                        "id": "123",
+                        "avatar": 'http://tvax1.sinaimg.cn/crop.0.0.300.300.180/006Iv8Wjly8ff7ghbigcij308c08ct8i.jpg',
+                        "sign": "这些都是测试数据，实际使用请严格按照该格式返回"
+                    },
+                    {
                         "username": "Z_子晴",
                         "id": "108101",
                         "avatar": "http://tva3.sinaimg.cn/crop.0.0.512.512.180/8693225ajw8f2rt20ptykj20e80e8weu.jpg",

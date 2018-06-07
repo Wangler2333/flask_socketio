@@ -9,7 +9,7 @@ import os
 import redis
 import logging
 
-from flask import Flask, jsonify, session, g, redirect
+from flask import Flask, jsonify, session, g
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.wtf.csrf import CSRFProtect
 from flask.ext.mail import Mail
@@ -28,7 +28,7 @@ socket_io = SocketIO()
 redis_store = None
 
 # 设置日志的记录等级
-logging.basicConfig(level=logging.DEBUG)  # 调试debug级
+logging.basicConfig(level=logging.WARNING)  # 调试debug级
 # 创建日志记录器，指明日志保存的路径、每个日志文件的最大大小、保存的日志文件个数上限
 file_log_handler = RotatingFileHandler(os.path.join(basedir, "logs/log.log"), maxBytes=1024 * 1024 * 100,
                                        backupCount=10)
